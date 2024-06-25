@@ -184,6 +184,17 @@ public class StarterJpaConfig {
 		resourceTypeProfiles.put("Consent", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction");
 		resourceTypeProfiles.put("VerificationResult", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Verification");
 
+		resourceTypeProfiles.put("CareTeam", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-CareTeam");
+		resourceTypeProfiles.put("Endpoint", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Endpoint");
+		resourceTypeProfiles.put("HealthcareService", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-HealthcareService");
+		resourceTypeProfiles.put("InsurancePlan", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-InsurancePlan");
+		resourceTypeProfiles.put("Location", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Location");
+		resourceTypeProfiles.put("OrganizationAffiliation", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-OrganizationAffiliation");
+		resourceTypeProfiles.put("Practitioner", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Practitioner");
+		resourceTypeProfiles.put("PractitionerRole", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-PractitionerRole");
+		
+
+
 		for (String key :	resourceTypeProfiles.keySet()) {
 			String profileUrl = resourceTypeProfiles.get(key);
 			ruleBuilder
