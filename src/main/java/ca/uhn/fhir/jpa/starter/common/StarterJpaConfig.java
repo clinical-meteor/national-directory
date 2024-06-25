@@ -182,7 +182,9 @@ public class StarterJpaConfig {
 		resourceTypeProfiles.put("Practitioner", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner");
 		resourceTypeProfiles.put("PractitionerRole", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-PractitionerRole");
 		resourceTypeProfiles.put("Consent", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction");
-		resourceTypeProfiles.put("VerificationResult", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Verification");
+		if (theFhirContext.getVersion().getVersion().isEqualOrNewerThan(FhirVersionEnum.R4)) {
+			resourceTypeProfiles.put("VerificationResult", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Verification");
+		}
 
 		resourceTypeProfiles.put("CareTeam", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-CareTeam");
 		resourceTypeProfiles.put("Endpoint", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Endpoint");
@@ -205,7 +207,7 @@ public class StarterJpaConfig {
 		// increase after garbage collection and decrease as new objects are created.
 		long heapFreeSize = Runtime.getRuntime().freeMemory();
 
-		ourLog.info("JAVA Heap Info: heap Size - %d, heap Max Size - %d, heap Free Size - %d", heapSize, heapMaxSize, heapFreeSize);
+		ourLog.info("JAVA Heap Info: heap Size - " + Long.toString(heapSize) + ", heap Max Size - " + Long.toString(heapMaxSize) + ", heap Free Size - " + Long.toString(heapFreeSize));
 
 		for (String key :	resourceTypeProfiles.keySet()) {
 			String profileUrl = resourceTypeProfiles.get(key);

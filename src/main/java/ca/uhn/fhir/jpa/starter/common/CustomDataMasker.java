@@ -68,6 +68,18 @@ public class CustomDataMasker {
 		if(purpose == null || purpose.trim().isEmpty())
 		{
 			purpose = "other";
+			// Get current size of heap in bytes.
+			long heapSize = Runtime.getRuntime().totalMemory();
+
+			// Get maximum size of heap in bytes. The heap cannot grow beyond this size.
+			// Any attempt will result in an OutOfMemoryException.
+			long heapMaxSize = Runtime.getRuntime().maxMemory();
+
+			// Get amount of free memory within the heap in bytes. This size will 
+			// increase after garbage collection and decrease as new objects are created.
+			long heapFreeSize = Runtime.getRuntime().freeMemory();
+
+			myLogger.info("JAVA Heap Info: heap Size - " + Long.toString(heapSize) + ", heap Max Size - " + Long.toString(heapMaxSize) + ", heap Free Size - " + Long.toString(heapFreeSize));
 		}
 		if (resource instanceof Bundle && !purpose.equals("attestation")) {
 			Bundle bundle = (Bundle) resource;
