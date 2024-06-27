@@ -213,16 +213,16 @@ public class StarterJpaConfig {
 			String profileUrl = resourceTypeProfiles.get(key);
 			ruleBuilder
 				.forResourcesOfType(key)
-				.requireAtLeastProfile(profileUrl)
-				.and()
-				.requireValidationToDeclaredProfiles();
+				.requireAtLeastProfile(profileUrl);
+				// .and()
+				// .requireValidationToDeclaredProfiles();
 		}
 
 		ruleBuilder
 			.forResourcesOfType("Organization")
-			.requireAtLeastOneProfileOf("http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Organization", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Network")
-			.and()
-			.requireValidationToDeclaredProfiles();
+			.requireAtLeastOneProfileOf("http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Organization", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Network");
+			// .and()
+			// .requireValidationToDeclaredProfiles();
 
 		List<IRepositoryValidatingRule> rules = ruleBuilder.build();
 		return new RepositoryValidatingInterceptor(theFhirContext, rules);
