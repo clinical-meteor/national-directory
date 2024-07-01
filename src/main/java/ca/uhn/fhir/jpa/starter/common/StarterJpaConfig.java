@@ -220,7 +220,7 @@ public class StarterJpaConfig {
 
 		ruleBuilder
 			.forResourcesOfType("Organization")
-			.requireAtLeastOneProfileOf("http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Organization", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Network");
+			.requireAtLeastOneProfileOf("http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Organization", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Network");
 			// .and()
 			// .requireValidationToDeclaredProfiles();
 
