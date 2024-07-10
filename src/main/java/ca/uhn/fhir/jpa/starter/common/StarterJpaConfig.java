@@ -172,28 +172,19 @@ public class StarterJpaConfig {
 
 	@Bean
 	public RepositoryValidatingInterceptor repositoryValidatingInterceptor(IValidationSupport validationSupport, FhirContext theFhirContext, RepositoryValidatingRuleBuilder ruleBuilder) {
-		Hashtable<String, String> resourceTypeProfiles = new Hashtable<>();
-		resourceTypeProfiles.put("CareTeam", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-CareTeam");
-		resourceTypeProfiles.put("Endpoint", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Endpoint");
-		resourceTypeProfiles.put("HealthcareService", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-HealthcareService");
-		resourceTypeProfiles.put("InsurancePlan", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-InsurancePlan");
-		resourceTypeProfiles.put("Location", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Location");
-		resourceTypeProfiles.put("OrganizationAffiliation", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-OrganizationAffiliation");
-		resourceTypeProfiles.put("Practitioner", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner");
-		resourceTypeProfiles.put("PractitionerRole", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-PractitionerRole");
-		resourceTypeProfiles.put("Consent", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction");
+		Hashtable<String, String[]> resourceTypeProfiles = new Hashtable<>();
+		resourceTypeProfiles.put("CareTeam", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-CareTeam", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-CareTeam"});
+		resourceTypeProfiles.put("Endpoint", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Endpoint", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Endpoint"});
+		resourceTypeProfiles.put("HealthcareService", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-HealthcareService", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-HealthcareService"});
+		resourceTypeProfiles.put("InsurancePlan", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-InsurancePlan", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-InsurancePlan"});
+		resourceTypeProfiles.put("Location", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Location", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Location"});
+		resourceTypeProfiles.put("OrganizationAffiliation", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-OrganizationAffiliation", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-OrganizationAffiliation"});
+		resourceTypeProfiles.put("Practitioner", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Practitioner"});
+		resourceTypeProfiles.put("PractitionerRole", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-PractitionerRole", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-PractitionerRole"});
+		resourceTypeProfiles.put("Consent", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction"});
 		if (theFhirContext.getVersion().getVersion().isEqualOrNewerThan(FhirVersionEnum.R4)) {
-			resourceTypeProfiles.put("VerificationResult", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Verification");
+			resourceTypeProfiles.put("VerificationResult", new String[] {"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Verification"});
 		}
-
-		resourceTypeProfiles.put("CareTeam", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-CareTeam");
-		resourceTypeProfiles.put("Endpoint", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Endpoint");
-		resourceTypeProfiles.put("HealthcareService", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-HealthcareService");
-		resourceTypeProfiles.put("InsurancePlan", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-InsurancePlan");
-		resourceTypeProfiles.put("Location", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Location");
-		resourceTypeProfiles.put("OrganizationAffiliation", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-OrganizationAffiliation");
-		resourceTypeProfiles.put("Practitioner", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-Practitioner");
-		resourceTypeProfiles.put("PractitionerRole", "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-ndapi-PractitionerRole");
 		
 
 		// Get current size of heap in bytes.
@@ -210,10 +201,10 @@ public class StarterJpaConfig {
 		ourLog.info("JAVA Heap Info: heap Size - " + Long.toString(heapSize) + ", heap Max Size - " + Long.toString(heapMaxSize) + ", heap Free Size - " + Long.toString(heapFreeSize));
 
 		for (String key :	resourceTypeProfiles.keySet()) {
-			String profileUrl = resourceTypeProfiles.get(key);
+			String[] profileUrl = resourceTypeProfiles.get(key);
 			ruleBuilder
 				.forResourcesOfType(key)
-				.requireAtLeastProfile(profileUrl);
+				.requireAtLeastOneProfileOf(profileUrl);
 				// .and()
 				// .requireValidationToDeclaredProfiles();
 		}
