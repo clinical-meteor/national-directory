@@ -3,27 +3,16 @@ package ca.uhn.fhir.jpa.starter.common;
 import java.util.List;
 import java.util.Iterator;
 
-import org.hibernate.annotations.common.reflection.MetadataProvider;
 import org.hl7.fhir.r4.model.DomainResource;
-import org.hl7.fhir.instance.model.api.IBaseConformance;
 import org.hl7.fhir.instance.model.api.IBaseResource;
-import org.hl7.fhir.r4.model.CapabilityStatement;
-import org.hl7.fhir.r4.model.DateTimeType;
-//import org.hl7.fhir.r4.model.Extension;
-//import org.hl7.fhir.r4.model.Patient;
-//import org.hl7.fhir.r4.model.StringType;
-//import org.springframework.stereotype.Component;
-import org.hl7.fhir.r4.model.Extension;
 import org.hl7.fhir.r4.model.OperationOutcome;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.r4.model.StringType;
 import org.hl7.fhir.r4.model.Coding;
 
 import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.interceptor.api.Interceptor;
 import ca.uhn.fhir.interceptor.api.Pointcut;
-import ca.uhn.fhir.rest.api.RestOperationTypeEnum;
 import ca.uhn.fhir.rest.server.servlet.ServletRequestDetails;
 
 import ca.uhn.fhir.rest.api.server.RequestDetails;
@@ -164,7 +153,7 @@ public class CustomDataMasker {
 			//ext.setUrl("http://some.custom.pkg1/CustomInterceptorPojo");
 			//ext.setValue(new StringType("CustomInterceptorPojo wuz here"));
 		}
-		else if (!(resource instanceof OperationOutcome) && !purpose.equals("attestation")) 
+		else if (resource instanceof DomainResource && !(resource instanceof OperationOutcome) && !purpose.equals("attestation")) 
 		{
 			// Single resource request
 			

@@ -14,7 +14,7 @@
     <parent>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir</artifactId>
-        <version>6.4.7</version>
+        <version>6.10.5</version>
     </parent>
 
     <artifactId>hapi-fhir-jpaserver-starter</artifactId>
@@ -42,6 +42,16 @@
         </repository>
     </repositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>2.3.9</version>
+            </dependency>
+        </dependencies>
+     </dependencyManagement>
+
 
     <dependencies>
         <dependency>
@@ -54,10 +64,10 @@
             <artifactId>websocket-jetty-client</artifactId>
             <version>${jetty_version}</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
