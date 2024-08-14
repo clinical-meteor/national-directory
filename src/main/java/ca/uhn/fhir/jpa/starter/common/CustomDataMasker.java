@@ -8,8 +8,6 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.OperationOutcome;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.r4.model.Coding;
-
 import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.interceptor.api.Interceptor;
 import ca.uhn.fhir.interceptor.api.Pointcut;
@@ -22,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.lantanagroup.util.AttestationUtil;
 
 
 
@@ -98,7 +98,7 @@ public class CustomDataMasker {
 					}
 				}
 				*/
-				if(isUnattested((DomainResource)entry.getResource()))
+				if(AttestationUtil.isUnattested((DomainResource)entry.getResource()))
 				{
 					String requestResourceType = httpRequest.getPathInfo().replace("/", "");
 					myLogger.info("Removing Masked Resource: " + entry.getFullUrlElement().toString());
@@ -160,7 +160,7 @@ public class CustomDataMasker {
 			// need to check to see if this is a simple get
 
 			DomainResource dResource = (DomainResource) resource;
-			if(isUnattested(dResource))
+			if(AttestationUtil.isUnattested(dResource))
 			{
 				myLogger.info("Removing Masked Resource: " + dResource.getResourceType() + "/" + dResource.getIdPart().toString());
 				//OperationOutcome oo = new OperationOutcome();
@@ -239,31 +239,31 @@ public class CustomDataMasker {
 
 	 // SERVER_INCOMING_REQUEST_PRE_PROCESSED Could use this one to change the request
 
-	public static boolean isUnattested(DomainResource resource)
-	{
-		boolean isResourceUnattested = false;
+	// public static boolean isUnattested(DomainResource resource)
+	// {
+	// 	boolean isResourceUnattested = false;
 
-		if (resource == null || resource.getMeta() == null || resource.getMeta().getSecurity() == null)
-		{
-			return isResourceUnattested;
-		}
+	// 	if (resource == null || resource.getMeta() == null || resource.getMeta().getSecurity() == null)
+	// 	{
+	// 		return isResourceUnattested;
+	// 	}
 
-		for(Coding coding : resource.getMeta().getSecurity())
-		{
-			if (coding == null || coding.getCode() == null || coding.getSystem() == null)
-			{
-				break;
-			}
+	// 	for(Coding coding : resource.getMeta().getSecurity())
+	// 	{
+	// 		if (coding == null || coding.getCode() == null || coding.getSystem() == null)
+	// 		{
+	// 			break;
+	// 		}
 
-			if(coding.getCode().equals("V") && coding.getSystem().equals("http://terminology.hl7.org/CodeSystem/v3-Confidentiality"))
-			{
-				isResourceUnattested = true;
-				break;
-			}
-		}
+	// 		if(coding.getCode().equals("V") && coding.getSystem().equals("http://terminology.hl7.org/CodeSystem/v3-Confidentiality"))
+	// 		{
+	// 			isResourceUnattested = true;
+	// 			break;
+	// 		}
+	// 	}
 
-		return isResourceUnattested;
-	}
+	// 	return isResourceUnattested;
+	// }
 
 }
 

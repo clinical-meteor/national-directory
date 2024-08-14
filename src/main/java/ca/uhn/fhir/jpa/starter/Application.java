@@ -1,6 +1,7 @@
 package ca.uhn.fhir.jpa.starter;
 
 import ca.uhn.fhir.batch2.jobs.config.Batch2JobsConfig;
+import ca.uhn.fhir.jpa.api.dao.DaoRegistry;
 import ca.uhn.fhir.jpa.batch2.JpaBatch2Config;
 import ca.uhn.fhir.jpa.starter.annotations.OnEitherVersion;
 import ca.uhn.fhir.jpa.starter.common.FhirTesterConfig;
@@ -10,6 +11,7 @@ import ca.uhn.fhir.jpa.subscription.match.config.SubscriptionProcessorConfig;
 import ca.uhn.fhir.jpa.subscription.match.config.WebsocketDispatcherConfig;
 import ca.uhn.fhir.jpa.subscription.submit.config.SubscriptionSubmitterConfig;
 import ca.uhn.fhir.rest.server.RestfulServer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +27,10 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+
+import com.lantanagroup.interceptors.ResourceVerificationInterceptor;
+import com.lantanagroup.providers.AttestationProvider;
+import com.lantanagroup.providers.ResourceVerificationProvider;
 
 @ServletComponentScan(basePackageClasses = {RestfulServer.class})
 @SpringBootApplication(exclude = {ElasticsearchRestClientAutoConfiguration.class, ThymeleafAutoConfiguration.class})
@@ -54,6 +60,9 @@ public class Application extends SpringBootServletInitializer {
   }
 
   @Autowired
+  DaoRegistry daoRegistry;
+
+  @Autowired
   AutowireCapableBeanFactory beanFactory;
 
   @Bean
@@ -64,6 +73,10 @@ public class Application extends SpringBootServletInitializer {
     servletRegistrationBean.setServlet(restfulServer);
     servletRegistrationBean.addUrlMappings("/fhir/*");
     servletRegistrationBean.setLoadOnStartup(1);
+
+    restfulServer.registerProvider(new AttestationProvider(daoRegistry));
+    restfulServer.registerProvider(new ResourceVerificationProvider(daoRegistry));
+    restfulServer.registerInterceptor(new ResourceVerificationInterceptor());
 
     return servletRegistrationBean;
   }
