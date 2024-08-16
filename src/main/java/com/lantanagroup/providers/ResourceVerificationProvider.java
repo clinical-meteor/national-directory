@@ -83,7 +83,7 @@ public class ResourceVerificationProvider {
       
       if (resource instanceof DomainResource) {
 
-        if (AttestationUtil.isUnattested((DomainResource)resource)) {
+        if (AttestationUtil.isUnattested(resource)) {
           return errorOutcome("Resource is not attested: " + String.join("/", targetRef));
         }
 

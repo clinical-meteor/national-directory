@@ -98,7 +98,7 @@ public class CustomDataMasker {
 					}
 				}
 				*/
-				if(AttestationUtil.isUnattested((DomainResource)entry.getResource()))
+				if(AttestationUtil.isUnattested(entry.getResource()))
 				{
 					String requestResourceType = httpRequest.getPathInfo().replace("/", "");
 					myLogger.info("Removing Masked Resource: " + entry.getFullUrlElement().toString());

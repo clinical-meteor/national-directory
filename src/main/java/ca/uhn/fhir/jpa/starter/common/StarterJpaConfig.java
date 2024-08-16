@@ -357,7 +357,7 @@ public class StarterJpaConfig {
 
 		fhirServer.registerInterceptor(new CapabilityStatementCustomizer());
 
-		fhirServer.registerInterceptor(new CustomDataMasker());
+		// fhirServer.registerInterceptor(new CustomDataMasker());
 
 		/*
 		 * If you are hosting this server at a specific DNS name, the server will try to

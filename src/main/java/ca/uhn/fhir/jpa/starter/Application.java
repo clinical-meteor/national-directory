@@ -11,6 +11,7 @@ import ca.uhn.fhir.jpa.subscription.match.config.SubscriptionProcessorConfig;
 import ca.uhn.fhir.jpa.subscription.match.config.WebsocketDispatcherConfig;
 import ca.uhn.fhir.jpa.subscription.submit.config.SubscriptionSubmitterConfig;
 import ca.uhn.fhir.rest.server.RestfulServer;
+import ca.uhn.fhir.rest.server.interceptor.consent.ConsentInterceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.lantanagroup.interceptors.ResourceRestrictionInterceptor;
 import com.lantanagroup.interceptors.ResourceVerificationInterceptor;
 import com.lantanagroup.providers.AttestationProvider;
 import com.lantanagroup.providers.ResourceVerificationProvider;
@@ -76,6 +78,7 @@ public class Application extends SpringBootServletInitializer {
 
     restfulServer.registerProvider(new AttestationProvider(daoRegistry));
     restfulServer.registerProvider(new ResourceVerificationProvider(daoRegistry));
+    restfulServer.registerInterceptor(new ConsentInterceptor(new ResourceRestrictionInterceptor()));
     restfulServer.registerInterceptor(new ResourceVerificationInterceptor());
 
     return servletRegistrationBean;

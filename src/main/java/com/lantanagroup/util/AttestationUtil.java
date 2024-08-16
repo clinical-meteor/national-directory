@@ -1,22 +1,22 @@
 package com.lantanagroup.util;
 
-import org.hl7.fhir.r4.model.Coding;
-import org.hl7.fhir.r4.model.DomainResource;
+import org.hl7.fhir.instance.model.api.IBaseCoding;
+import org.hl7.fhir.instance.model.api.IBaseResource;
 
 public class AttestationUtil {
 
-  public static boolean isAttested(DomainResource resource) {
+  public static boolean isAttested(IBaseResource resource) {
     return !isUnattested(resource);
   }
 
-  public static boolean isUnattested(DomainResource resource) {
+  public static boolean isUnattested(IBaseResource resource) {
     boolean isResourceUnattested = false;
 
     if (resource == null || resource.getMeta() == null || resource.getMeta().getSecurity() == null) {
       return isResourceUnattested;
     }
 
-    for (Coding coding : resource.getMeta().getSecurity()) {
+    for (IBaseCoding coding : resource.getMeta().getSecurity()) {
       if (coding == null || coding.getCode() == null || coding.getSystem() == null) {
         break;
       }
