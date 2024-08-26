@@ -26,8 +26,8 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "X-Purpose",
-						"value": "attestation",
+						"key": "X-Bypass-Auth",
+						"value": "",
 						"type": "text"
 					}
 				],
@@ -58,8 +58,8 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "X-Purpose",
-						"value": "attestation",
+						"key": "X-Bypass-Auth",
+						"value": "",
 						"type": "text"
 					}
 				],
