@@ -4,23 +4,37 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r4.model.CareTeam;
 import org.hl7.fhir.r4.model.Consent;
 import org.hl7.fhir.r4.model.DomainResource;
+import org.hl7.fhir.r4.model.Endpoint;
 import org.hl7.fhir.r4.model.Expression;
 import org.hl7.fhir.r4.model.Extension;
+import org.hl7.fhir.r4.model.HealthcareService;
+import org.hl7.fhir.r4.model.InsurancePlan;
+import org.hl7.fhir.r4.model.Location;
+import org.hl7.fhir.r4.model.Organization;
+import org.hl7.fhir.r4.model.OrganizationAffiliation;
 import org.hl7.fhir.r4.model.Parameters;
+import org.hl7.fhir.r4.model.Practitioner;
+import org.hl7.fhir.r4.model.PractitionerRole;
 import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.Resource;
 import org.hl7.fhir.r4.model.StringType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lantanagroup.models.UserProfile;
 import com.lantanagroup.util.AttestationUtil;
 
+import ca.uhn.fhir.jpa.api.dao.DaoRegistry;
 import ca.uhn.fhir.jpa.patch.FhirPatch;
+import ca.uhn.fhir.jpa.searchparam.SearchParameterMap;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
+import ca.uhn.fhir.rest.param.ReferenceParam;
 import ca.uhn.fhir.rest.server.interceptor.consent.ConsentOutcome;
 import ca.uhn.fhir.rest.server.interceptor.consent.IConsentContextServices;
 import ca.uhn.fhir.rest.server.interceptor.consent.IConsentService;
@@ -32,11 +46,22 @@ public class ResourceRestrictionInterceptor implements IConsentService {
   private final String RESTRICTION_EXTENSION_BASE = "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-usage-restriction";
   private final String RESTRICTION_EXTENSION_FHIRPATH = "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath";
 
-  @Override
-  public ConsentOutcome startOperation(RequestDetails thRequestDetails, IConsentContextServices theContextServices) {
+  DaoRegistry daoRegistry;
 
-    // bypass consent check with special header
-    if (!thRequestDetails.getHeaders("X-Consent-Skip").isEmpty()) {
+  public ResourceRestrictionInterceptor(DaoRegistry theDaoRegistry) {
+    daoRegistry = theDaoRegistry;
+  }
+
+
+  @Override
+  public ConsentOutcome startOperation(RequestDetails theRequestDetails, IConsentContextServices theContextServices) {
+
+    // bypass permission check with special header
+    if (!theRequestDetails.getHeaders("X-Bypass-Auth").isEmpty()) {
+      return ConsentOutcome.AUTHORIZED;
+    }
+
+    if (isAdmin(theRequestDetails)) {
       return ConsentOutcome.AUTHORIZED;
     }
 
@@ -49,9 +74,16 @@ public class ResourceRestrictionInterceptor implements IConsentService {
 
     // logger.info("canSeeResource for resource: " + ((DomainResource)theResource).getId());
 
+    // need to be able to cast the resource to a DomainResource to eventually access the contained property
+    if (!DomainResource.class.isInstance(theResource)) {
+      return ConsentOutcome.AUTHORIZED;
+    }
+
+    DomainResource resource = (DomainResource) theResource;
+
 
     //
-    // Attestation check -- hide the resource if it is unattested and the request does not have the special header
+    // Attestation check -- hide the resource if it is unattested and the user is not authorized to attest it
     // 
 
     String purpose = theRequestDetails.getHeader("X-Purpose");
@@ -59,7 +91,15 @@ public class ResourceRestrictionInterceptor implements IConsentService {
     // header not present or not equal to attestation so we need to check if the resource is attested
     if (purpose == null || !purpose.equals("attestation")) {
 
-      if (AttestationUtil.isUnattested(theResource)) {
+      if (AttestationUtil.isUnattested(resource)) {
+
+        if (isAuthorized(theRequestDetails, resource))
+        {
+          // user is authorized to attest this resource
+          return ConsentOutcome.AUTHORIZED;
+        }
+
+        // user is not authorized to view this unattested resource
         return ConsentOutcome.REJECT;
       }
     }
@@ -70,14 +110,6 @@ public class ResourceRestrictionInterceptor implements IConsentService {
     // Resource restriction check
     // Consent check based on http://build.fhir.org/ig/HL7/fhir-us-ndh/StructureDefinition-ndh-Restriction.html
     //
-
-
-    // need to be able to cast the resource to a DomainResource to access the contained property
-    if (!DomainResource.class.isInstance(theResource)) {
-      return ConsentOutcome.AUTHORIZED;
-    }
-
-    DomainResource resource = (DomainResource) theResource;
 
     // check if the resource has the restriction extension
     Optional<Extension> extension = resource.getExtension().stream()
@@ -133,11 +165,11 @@ public class ResourceRestrictionInterceptor implements IConsentService {
         return ConsentOutcome.PROCEED;
       }
 
-      // otherwise, this resource is entirely restricted
+      // otherwise, this resource is entirely restricted and this user should not see it
       return ConsentOutcome.REJECT;
     }
     
-    // user is authorized to see the entire resource
+    // user is authorized to see the entire resource so no further checks are needed
     return ConsentOutcome.AUTHORIZED;
   }
 
@@ -199,21 +231,163 @@ public class ResourceRestrictionInterceptor implements IConsentService {
   }
 
 
+  protected UserProfile getUserProfile(RequestDetails theRequestDetails) {
+
+    if (theRequestDetails.getHeaders("X-User").isEmpty()) {
+      return null;
+    }
+
+    // parse the json user profile from the header
+    String userProfileJson = theRequestDetails.getHeader("X-User");
+    try {
+      UserProfile userProfile = new ObjectMapper().readValue(userProfileJson, UserProfile.class);
+      return userProfile;
+    } catch (JsonProcessingException e) {
+      logger.error("Failed to parse user profile JSON", e);
+      return null;
+    }
+
+  }
+
+  protected Boolean isAdmin(RequestDetails theRequestDetails) {
+
+    UserProfile userProfile = getUserProfile(theRequestDetails);
+
+    if (userProfile == null) {
+      return false;
+    }
+
+    for (String role : userProfile.getRoles()) {
+      if (role.equals("admin")) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
   /**
    * Check if the user is authorized to view a resource based on the given Consent
    * resource
    * 
    * @param theRequestDetails The server request details
-   * @param theConsent        The Consent resource to check the user against
+   * @param resource          The resource to check
    * @return True if the user is authorized, false otherwise
    */
-  protected Boolean isAuthorized(RequestDetails theRequestDetails, Consent theConsent) {
+  protected Boolean isAuthorized(RequestDetails theRequestDetails, DomainResource theResource) {
 
     // TODO: actually check if the user is authorized
     // for now... check for test header in the request to authorize this user
 
-    return !theRequestDetails.getHeaders("X-Consent-Policy").isEmpty();
+    if (isAdmin(theRequestDetails)) {
+      return true;
+    }
+
+    UserProfile userProfile = getUserProfile(theRequestDetails);
+    if (userProfile == null) {
+      return false;
+    }
+
+
+    // what properties to check for determining permission depends on the resource type
+
+    //
+    // Endpoint
+    //
+    if (theResource instanceof Endpoint) {
+      Endpoint endpoint = (Endpoint) theResource;
+      return true;
+    }
+
+
+    //
+    // CareTeam
+    //
+    else if (theResource instanceof CareTeam) {
+      CareTeam careTeam = (CareTeam) theResource;
+      return true;
+    }
+
+
+    //
+    // HealthcareService
+    //
+    else if (theResource instanceof HealthcareService) {
+      HealthcareService healthcareService = (HealthcareService) theResource;
+      return true;
+    }
+
+    //
+    // InsurancePlan
+    //
+    else if (theResource instanceof InsurancePlan) {
+      InsurancePlan insurancePlan = (InsurancePlan) theResource;
+      return true;
+    }
+
+    //
+    // Location
+    //
+    else if (theResource instanceof Location) {
+      Location location = (Location) theResource;
+      return true;
+    }
+
+    //
+    // Organization
+    //
+    else if (theResource instanceof Organization) {
+      Organization organization = (Organization) theResource;
+
+      // user is directly associated with the organization
+      if (userProfile.getOrganizations().contains(organization.getIdElement().getIdPart())) {
+        return true;
+      }
+
+      // check for associated practitioner role
+      if (userProfile.getPractitioner() != null) {
+        var result = daoRegistry.getDaoOrThrowException(PractitionerRole.class).search(
+            new SearchParameterMap()
+                .add("organization", new ReferenceParam(organization.getIdPart()))
+                .add("practitioner", new ReferenceParam(userProfile.getPractitioner())),
+            theRequestDetails);
+        if (!result.isEmpty()) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    //
+    // OrganizationAffiliation
+    //
+    else if (theResource instanceof OrganizationAffiliation) {
+      OrganizationAffiliation organizationAffiliation = (OrganizationAffiliation) theResource;
+      return true;
+    }
+
+    //
+    // Practitioner
+    //
+    else if (theResource instanceof Practitioner) {
+      Practitioner practitioner = (Practitioner) theResource;
+      return true;
+    }
+
+    //
+    // PractitionerRole
+    //
+    else if (theResource instanceof PractitionerRole) {
+      PractitionerRole practitionerRole = (PractitionerRole) theResource;
+      return true;
+    }
+
+
+
+    return false;
 
   }
+  
   
 }

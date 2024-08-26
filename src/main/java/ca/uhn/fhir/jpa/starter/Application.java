@@ -78,7 +78,7 @@ public class Application extends SpringBootServletInitializer {
 
     restfulServer.registerProvider(new AttestationProvider(daoRegistry));
     restfulServer.registerProvider(new ResourceVerificationProvider(daoRegistry));
-    restfulServer.registerInterceptor(new ConsentInterceptor(new ResourceRestrictionInterceptor()));
+    restfulServer.registerInterceptor(new ConsentInterceptor(new ResourceRestrictionInterceptor(daoRegistry)));
     restfulServer.registerInterceptor(new ResourceVerificationInterceptor());
 
     return servletRegistrationBean;

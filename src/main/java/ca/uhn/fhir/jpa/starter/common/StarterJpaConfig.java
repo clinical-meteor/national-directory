@@ -272,6 +272,7 @@ public class StarterJpaConfig {
 		config.addAllowedHeader("X-Requested-With");
 		config.addAllowedHeader("Prefer");
 		config.addAllowedHeader("X-Purpose");
+		config.addAllowedHeader("X-User"); // allowed for simulating a user in place of a real bearer token
 
 		List<String> allAllowedCORSOrigins = appProperties.getCors().getAllowed_origin();
 		allAllowedCORSOrigins.forEach(config::addAllowedOriginPattern);
