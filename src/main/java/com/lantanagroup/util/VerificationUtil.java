@@ -151,13 +151,15 @@ public class VerificationUtil {
 
     // Set default verification status based on resource type
     Set<String> relationalTypes = Set.of("OrganizationAffiliation", "PractitionerRole");
+    Set<String> verifiableTypes = Set.of("CareTeam", "Endpoint", "HealthcareService", "InsurancePlan", "Location", "Network", "Organization", "Practitioner");
 
     if (relationalTypes.contains(resource.getResourceType().toString())) {
       setVerificationStatus(resource, "complete");
     }
-    else {
+    else if (verifiableTypes.contains(resource.getResourceType().toString())) {
       setVerificationStatus(resource, "incomplete");
     }
+    // nothing to do for other resource types
 
 
     return resource;
