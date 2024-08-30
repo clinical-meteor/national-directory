@@ -10,6 +10,8 @@ import ca.uhn.fhir.jpa.subscription.channel.config.SubscriptionChannelConfig;
 import ca.uhn.fhir.jpa.subscription.match.config.SubscriptionProcessorConfig;
 import ca.uhn.fhir.jpa.subscription.match.config.WebsocketDispatcherConfig;
 import ca.uhn.fhir.jpa.subscription.submit.config.SubscriptionSubmitterConfig;
+import ca.uhn.fhir.jpa.subscription.util.SubscriptionDebugLogInterceptor;
+import ca.uhn.fhir.jpa.topic.SubscriptionTopicDispatcher;
 import ca.uhn.fhir.rest.server.RestfulServer;
 import ca.uhn.fhir.rest.server.interceptor.consent.ConsentInterceptor;
 
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.lantanagroup.interceptors.ResourceRestrictionInterceptor;
 import com.lantanagroup.interceptors.ResourceVerificationInterceptor;
+import com.lantanagroup.interceptors.SubscriptionInterceptor;
 import com.lantanagroup.providers.AttestationProvider;
 import com.lantanagroup.providers.ResourceVerificationProvider;
 
@@ -67,6 +70,9 @@ public class Application extends SpringBootServletInitializer {
   @Autowired
   AutowireCapableBeanFactory beanFactory;
 
+  @Autowired
+  SubscriptionTopicDispatcher subscriptionTopicDispatcher;
+
   @Bean
   @Conditional(OnEitherVersion.class)
   public ServletRegistrationBean hapiServletRegistration(RestfulServer restfulServer) {
@@ -80,6 +86,7 @@ public class Application extends SpringBootServletInitializer {
     restfulServer.registerProvider(new ResourceVerificationProvider(daoRegistry));
     restfulServer.registerInterceptor(new ConsentInterceptor(new ResourceRestrictionInterceptor(daoRegistry)));
     restfulServer.registerInterceptor(new ResourceVerificationInterceptor());
+    restfulServer.registerInterceptor(new SubscriptionInterceptor(daoRegistry, subscriptionTopicDispatcher));
 
     return servletRegistrationBean;
   }

@@ -177,9 +177,9 @@ hapi:
     #      responses_enabled: true
     #    binary_storage_enabled: true
     inline_resource_storage_below_size: 4000
-#    subscription:
-#      resthook_enabled: true
-#      websocket_enabled: false
+    subscription:
+      resthook_enabled: true
+      websocket_enabled: false
 #      email:
 #        from: some@test.com
 #        host: google.com
