@@ -1,9 +1,12 @@
 package com.lantanagroup.util;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.elasticsearch.core.List;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.DomainResource;
@@ -13,20 +16,17 @@ import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.VerificationResult;
 import org.hl7.fhir.r4.model.VerificationResult.Status;
 import org.hl7.fhir.r4.model.VerificationResult.VerificationResultAttestationComponent;
-import org.joda.time.Instant;
 
 public class VerificationUtil {
 
   private static final String VERIFICATION_EXTENSION_URL = "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-verification-status";
   private static final String VERIFICATION_CODESYSTEM = "http://hl7.org/fhir/us/ndh/CodeSystem/NdhVerificationStatusCS";
 
-  private static final HashMap<String, String> verificationCodingMap = new HashMap<String, String>() {
-    {
-      put("incomplete", "Incomplete");
-      put("complete", "Complete");
-      put("not-required", "Not Required");
-    }
-  };
+  private static final HashMap<String, String> verificationCodingMap = new HashMap<String, String>(Map.of(
+    "incomplete", "Incomplete",
+    "complete", "Complete",
+    "not-required", "Not Required"
+  ));
 
   /**
   * Returns the verification status Coding for the given resource if it exists, otherwise null is returned
@@ -173,7 +173,7 @@ public class VerificationUtil {
     vr.setTarget(List.of(new Reference(resource)));
     vr.setNeed(new CodeableConcept().addCoding(new Coding("http://terminology.hl7.org/CodeSystem/need", "none", "None")));
     vr.setStatus(Status.ATTESTED);
-    vr.setStatusDate(Instant.now().toDate());
+    vr.setStatusDate(Date.from(Instant.now()));
     vr.setValidationType(new CodeableConcept().addCoding(new Coding("http://terminology.hl7.org/CodeSystem/verificationresult-validation-type", "nothing", "Nothing")));
     vr.setValidationProcess(List.of(new CodeableConcept().addCoding(new Coding("http://hl7.org/fhir/us/ndh/CodeSystem/NdhVerificationProcessCS", "manual", "Manual"))));
     vr.setFailureAction(new CodeableConcept().addCoding(new Coding("http://terminology.hl7.org/CodeSystem/failure-action", "none", "None")));
@@ -183,7 +183,7 @@ public class VerificationUtil {
     var vrac = new VerificationResultAttestationComponent();
     vrac.setWho(attestor);
     vrac.setCommunicationMethod(new CodeableConcept().addCoding(new Coding("http://terminology.hl7.org/CodeSystem/verificationresult-communication-method", "manual", "Manual")));
-    vrac.setDate(Instant.now().toDate());
+    vrac.setDate(Date.from(Instant.now()));
     vr.setAttestation(vrac);
     
     return vr;

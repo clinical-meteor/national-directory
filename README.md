@@ -15,11 +15,11 @@ There are multiple ways to build and run the server locally.  By default, the se
 
 
 ```bash
-mvn spring-boot:run -Pboot
+mvn spring-boot:run
 ```
 or
 ```bash
-mvn jetty:run
+mvn -Pjetty spring-boot:run
 ```
 
 ### Using Docker

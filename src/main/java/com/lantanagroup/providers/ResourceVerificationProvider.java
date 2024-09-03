@@ -44,12 +44,9 @@ public class ResourceVerificationProvider {
     List<DomainResource> resourceList = new ArrayList<>();
     List<ParametersParameterComponent> parameterList = new ArrayList<>();
 
-    HashMap<String, Class<?>> requiredParts = new HashMap<String, Class<?>>() {
-      {
-        put("target", Reference.class);
-        put("attestor", Reference.class);
-      }
-    };
+    HashMap<String, Class<?>> requiredParts = new HashMap<String, Class<?>>();
+    requiredParts.put("target", Reference.class);
+    requiredParts.put("attestor", Reference.class);
 
 
     // validate the verification parameters before proceeding
