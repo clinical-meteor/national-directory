@@ -22,12 +22,18 @@ public class ResourceVerificationInterceptor {
 
   @Hook(Pointcut.STORAGE_PRESTORAGE_RESOURCE_CREATED)
   public void insert(IBaseResource theResource) {
-    // logger.info("Checking verification for new resource of type: " + theResource.getClass().getSimpleName());
+    if (!DomainResource.class.isAssignableFrom(theResource.getClass())) {
+      return;
+    }
+    logger.info("Checking verification for new resource of type: " + theResource.getClass().getSimpleName());
     VerificationUtil.initializeVerification((DomainResource)theResource);
   }
 
   @Hook(Pointcut.STORAGE_PRESTORAGE_RESOURCE_UPDATED)
   public void update(IBaseResource theOldResource, IBaseResource theResource) {
+    if (!DomainResource.class.isAssignableFrom(theResource.getClass())) {
+      return;
+    }
     // logger.info("Checking verification for existing resource of type: " + theResource.getClass().getSimpleName());
     VerificationUtil.initializeVerification((DomainResource)theResource);
   }
