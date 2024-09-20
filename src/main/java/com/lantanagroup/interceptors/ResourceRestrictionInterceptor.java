@@ -155,7 +155,7 @@ public class ResourceRestrictionInterceptor implements IConsentService {
         .anyMatch(res -> res instanceof DomainResource && ((DomainResource)res).hasExtension(RESTRICTION_EXTENSION_FHIRPATH));
 
     // check if the user is authorized to view the resource
-    if (!isAuthorized(theRequestDetails, (Consent)consentResource.get())) {
+    if (!isAuthorized(theRequestDetails, resource)) {
 
       // logger.info("User is not authorized to view resource.  restrictPathPresent: " + restrictPathPresent);
 
@@ -372,7 +372,13 @@ public class ResourceRestrictionInterceptor implements IConsentService {
     //
     else if (theResource instanceof Practitioner) {
       Practitioner practitioner = (Practitioner) theResource;
-      return true;
+
+      // user is this practitioner
+      if (userProfile.getPractitioner() != null && userProfile.getPractitioner().equals(practitioner.getIdElement().getIdPart())) {
+        return true;
+      }
+
+      return false;
     }
 
     //
