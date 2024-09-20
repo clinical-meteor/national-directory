@@ -33,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"resourceType\": \"Practitioner\",\r\n    \"id\": \"JoeSmithExample\",\r\n    \"meta\": {\r\n        \"lastUpdated\": \"2020-07-07T13:26:22.0314215+00:00\",\r\n        \"profile\": [\r\n            \"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner\"\r\n        ],\r\n        \"security\": [\r\n            {\r\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v3-Confidentiality\",\r\n                \"code\": \"V\"\r\n            }\r\n        ]\r\n    },\r\n    \"language\": \"en-US\",\r\n    \"text\": {\r\n        \"status\": \"generated\",\r\n        \"div\": \"<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\" xml:lang=\\\"en-US\\\" lang=\\\"en-US\\\">Example Practitioner</div>\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-identifier-status\",\r\n                    \"valueCode\": \"active\"\r\n                }\r\n            ],\r\n            \"system\": \"http://www.ndh.org/identifiers\",\r\n            \"value\": \"JoeSmith\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"name\": [\r\n        {\r\n            \"text\": \"Joe Smith, MD\",\r\n            \"family\": \"Smith\",\r\n            \"given\": [\r\n                \"Joe\"\r\n            ]\r\n        }\r\n    ],\r\n    \"telecom\": [\r\n        {\r\n            \"system\": \"phone\",\r\n            \"value\": \"555-123-6666\",\r\n            \"use\": \"home\"\r\n        },\r\n        {\r\n            \"system\": \"phone\",\r\n            \"value\": \"555-123-1234\",\r\n            \"use\": \"work\"\r\n        }\r\n    ],\r\n    \"address\": [\r\n        {\r\n            \"use\": \"home\",\r\n            \"line\": [\r\n                \"263 Farmington Ave\"\r\n            ],\r\n            \"city\": \"Farmington\",\r\n            \"state\": \"CT\",\r\n            \"postalCode\": \"06030\",\r\n            \"country\": \"US\"\r\n        },\r\n        {\r\n            \"use\": \"work\",\r\n            \"type\": \"physical\",\r\n            \"line\": [\r\n                \"400 Lee Rd Farmington, CT 06032\"\r\n            ],\r\n            \"city\": \"Farmington\",\r\n            \"state\": \"CT\",\r\n            \"postalCode\": \"06032\",\r\n            \"country\": \"US\"\r\n        }\r\n    ],\r\n    \"qualification\": [\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"extension\": [\r\n                        {\r\n                            \"url\": \"status\",\r\n                            \"valueCode\": \"active\"\r\n                        },\r\n                        {\r\n                            \"url\": \"whereValid\",\r\n                            \"valueCodeableConcept\": {\r\n                                \"coding\": [\r\n                                    {\r\n                                        \"system\": \"https://www.usps.com/\",\r\n                                        \"code\": \"CT\"\r\n                                    }\r\n                                ]\r\n                            }\r\n                        }\r\n                    ],\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\"\r\n                }\r\n            ],\r\n            \"code\": {\r\n                \"coding\": [\r\n                    {\r\n                        \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0360\",\r\n                        \"code\": \"MD\"\r\n                    }\r\n                ],\r\n                \"text\": \"MD\"\r\n            },\r\n            \"issuer\": {\r\n                \"display\": \"State of Connecticut\"\r\n            }\r\n        },\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"extension\": [\r\n                        {\r\n                            \"url\": \"status\",\r\n                            \"valueCode\": \"active\"\r\n                        },\r\n                        {\r\n                            \"url\": \"whereValid\",\r\n                            \"valueCodeableConcept\": {\r\n                                \"coding\": [\r\n                                    {\r\n                                        \"system\": \"https://www.usps.com/\",\r\n                                        \"code\": \"CT\"\r\n                                    }\r\n                                ]\r\n                            }\r\n                        }\r\n                    ],\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\"\r\n                }\r\n            ],\r\n            \"code\": {\r\n                \"coding\": [\r\n                    {\r\n                        \"system\": \"http://nucc.org/provider-taxonomy\",\r\n                        \"code\": \"207R00000X\",\r\n                        \"display\": \"Internal Medicine Physician\"\r\n                    }\r\n                ],\r\n                \"text\": \"Board Certified Internal Medicine\"\r\n            },\r\n            \"issuer\": {\r\n                \"display\": \"American Board of Internal Medicine\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n  \"resourceType\": \"Practitioner\",\r\n  \"id\": \"JoeSmithExample\",\r\n  \"meta\": {\r\n    \"lastUpdated\": \"2020-07-07T13:26:22.0314215+00:00\",\r\n    \"profile\": [\r\n      \"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner\"\r\n    ],\r\n    \"security\": [\r\n      {\r\n        \"system\": \"http://terminology.hl7.org/CodeSystem/v3-Confidentiality\",\r\n        \"code\": \"V\"\r\n      }\r\n    ]\r\n  },\r\n  \"contained\": [\r\n    {\r\n      \"resourceType\": \"Consent\",\r\n      \"id\": \"HideHomeContact\",\r\n      \"meta\": {\r\n        \"profile\": [\r\n          \"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction\"\r\n        ]\r\n      },\r\n      \"extension\": [\r\n        {\r\n          \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath\",\r\n          \"valueExpression\": {\r\n            \"language\": \"text/fhirpath\",\r\n            \"expression\": \"Practitioner.address.where(use='home')\"\r\n          }\r\n        },\r\n        {\r\n          \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath\",\r\n          \"valueExpression\": {\r\n            \"language\": \"text/fhirpath\",\r\n            \"expression\": \"Practitioner.telecom.where(use='home')\"\r\n          }\r\n        }\r\n      ],\r\n      \"status\": \"active\",\r\n      \"scope\": {\r\n        \"coding\": [\r\n          {\r\n            \"system\": \"http://hl7.org/fhir/us/ndh/CodeSystem/ConsentScopeNdhCS\",\r\n            \"code\": \"directory-privacy\"\r\n          }\r\n        ],\r\n        \"text\": \"Directory Privacy\"\r\n      },\r\n      \"category\": [\r\n        {\r\n          \"coding\": [\r\n            {\r\n              \"system\": \"http://hl7.org/fhir/us/ndh/CodeSystem/ConsentCategoryNdhCS\",\r\n              \"code\": \"DRC\"\r\n            }\r\n          ],\r\n          \"text\": \"Directory Restriction\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"extension\": [\r\n    {\r\n      \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-usage-restriction\",\r\n      \"valueReference\": {\r\n        \"reference\": \"#HideHomeContact\"\r\n      }\r\n    }\r\n  ],\r\n  \"language\": \"en-US\",\r\n  \"text\": {\r\n    \"status\": \"generated\",\r\n    \"div\": \"<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\" xml:lang=\\\"en-US\\\" lang=\\\"en-US\\\">Example Practitioner</div>\"\r\n  },\r\n  \"identifier\": [\r\n    {\r\n      \"extension\": [\r\n        {\r\n          \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-identifier-status\",\r\n          \"valueCode\": \"active\"\r\n        }\r\n      ],\r\n      \"system\": \"http://www.ndh.org/identifiers\",\r\n      \"value\": \"JoeSmith\"\r\n    }\r\n  ],\r\n  \"active\": true,\r\n  \"name\": [\r\n    {\r\n      \"text\": \"Joe Smith, MD\",\r\n      \"family\": \"Smith\",\r\n      \"given\": [\r\n        \"Joe\"\r\n      ]\r\n    }\r\n  ],\r\n  \"telecom\": [\r\n    {\r\n      \"system\": \"phone\",\r\n      \"value\": \"555-123-6666\",\r\n      \"use\": \"home\"\r\n    },\r\n    {\r\n      \"system\": \"phone\",\r\n      \"value\": \"555-123-1234\",\r\n      \"use\": \"work\"\r\n    }\r\n  ],\r\n  \"address\": [\r\n    {\r\n      \"use\": \"home\",\r\n      \"line\": [\r\n        \"263 Farmington Ave\"\r\n      ],\r\n      \"city\": \"Farmington\",\r\n      \"state\": \"CT\",\r\n      \"postalCode\": \"06030\",\r\n      \"country\": \"US\"\r\n    },\r\n    {\r\n      \"use\": \"work\",\r\n      \"type\": \"physical\",\r\n      \"line\": [\r\n        \"400 Lee Rd Farmington, CT 06032\"\r\n      ],\r\n      \"city\": \"Farmington\",\r\n      \"state\": \"CT\",\r\n      \"postalCode\": \"06032\",\r\n      \"country\": \"US\"\r\n    }\r\n  ],\r\n  \"qualification\": [\r\n    {\r\n      \"extension\": [\r\n        {\r\n          \"extension\": [\r\n            {\r\n              \"url\": \"status\",\r\n              \"valueCode\": \"active\"\r\n            },\r\n            {\r\n              \"url\": \"whereValid\",\r\n              \"valueCodeableConcept\": {\r\n                \"coding\": [\r\n                  {\r\n                    \"system\": \"https://www.usps.com/\",\r\n                    \"code\": \"CT\"\r\n                  }\r\n                ]\r\n              }\r\n            }\r\n          ],\r\n          \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\"\r\n        }\r\n      ],\r\n      \"code\": {\r\n        \"coding\": [\r\n          {\r\n            \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0360\",\r\n            \"code\": \"MD\"\r\n          }\r\n        ],\r\n        \"text\": \"MD\"\r\n      },\r\n      \"issuer\": {\r\n        \"display\": \"State of Connecticut\"\r\n      }\r\n    },\r\n    {\r\n      \"extension\": [\r\n        {\r\n          \"extension\": [\r\n            {\r\n              \"url\": \"status\",\r\n              \"valueCode\": \"active\"\r\n            },\r\n            {\r\n              \"url\": \"whereValid\",\r\n              \"valueCodeableConcept\": {\r\n                \"coding\": [\r\n                  {\r\n                    \"system\": \"https://www.usps.com/\",\r\n                    \"code\": \"CT\"\r\n                  }\r\n                ]\r\n              }\r\n            }\r\n          ],\r\n          \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\"\r\n        }\r\n      ],\r\n      \"code\": {\r\n        \"coding\": [\r\n          {\r\n            \"system\": \"http://nucc.org/provider-taxonomy\",\r\n            \"code\": \"207R00000X\",\r\n            \"display\": \"Internal Medicine Physician\"\r\n          }\r\n        ],\r\n        \"text\": \"Board Certified Internal Medicine\"\r\n      },\r\n      \"issuer\": {\r\n        \"display\": \"American Board of Internal Medicine\"\r\n      }\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -47,6 +47,72 @@
 					],
 					"path": [
 						"Practitioner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1a. Query Practitioner as Anonymous",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ndh_fhir_base}}/Practitioner/{{new_practitioner_id}}",
+					"host": [
+						"{{ndh_fhir_base}}"
+					],
+					"path": [
+						"Practitioner",
+						"{{new_practitioner_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1b. Query Practitioner as Admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User",
+						"value": "{\"email\":\"addy.admin@example.123\",\"firstName\":\"Addy\",\"lastName\":\"Admin\",\"roles\":[\"admin\"],\"practitioner\":\"\",\"organizations\":[],\"description\":\"User with admin role\"}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ndh_fhir_base}}/Practitioner/{{new_practitioner_id}}",
+					"host": [
+						"{{ndh_fhir_base}}"
+					],
+					"path": [
+						"Practitioner",
+						"{{new_practitioner_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1c. Query Practitioner as User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User",
+						"value": "{\"email\":\"joesmith@examplepract.123\",\"firstName\":\"Joe\",\"lastName\":\"Smith\",\"roles\":[],\"practitioner\":\"{{new_practitioner_id}}\",\"organizations\":[],\"description\":\"Practitioner with ID of \\\"JoeSmith\\\"\"}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ndh_fhir_base}}/Practitioner/{{new_practitioner_id}}",
+					"host": [
+						"{{ndh_fhir_base}}"
+					],
+					"path": [
+						"Practitioner",
+						"{{new_practitioner_id}}"
 					]
 				}
 			},
@@ -109,6 +175,92 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "4. Subscribe to Practitioner Qualification Changes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"new_practitioner_sub_id\", jsonData.id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"resourceType\": \"Subscription\",\r\n  \"meta\": {\r\n    \"profile\": [ \"http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-subscription\" ],\r\n    \"tag\": [ {\r\n      \"system\": \"http://hapifhir.io/fhir/StructureDefinition/subscription-matching-strategy\",\r\n      \"code\": \"TOPIC\",\r\n      \"display\": \"SubscriptionTopic\"\r\n    } ]\r\n  },\r\n  \"status\": \"active\",\r\n  \"criteria\": \"http://ndh.org/topic/practitioner-qualification-create-modified-or-delete\",\r\n  \"_criteria\": {\r\n    \"extension\": [ {\r\n      \"url\": \"http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-filter-criteria\",\r\n      \"valueString\": \"Practitioner?_id={{new_practitioner_id}}\"\r\n    } ]\r\n  },\r\n  \"channel\": {\r\n    \"type\": \"websocket\",\r\n    \"payload\": \"application/fhir+json\",\r\n    \"_payload\": {\r\n      \"extension\": [ {\r\n        \"url\": \"http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-payload-content\",\r\n        \"valueCode\": \"full-resource\"\r\n      } ]\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ndh_fhir_base}}/Subscription",
+					"host": [
+						"{{ndh_fhir_base}}"
+					],
+					"path": [
+						"Subscription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Update Practitioner Qualifications",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resourceType\": \"Practitioner\",\r\n    \"id\": \"{{new_practitioner_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Practitioner\"\r\n        ]\r\n    },\r\n    \"language\": \"en-US\",\r\n    \"text\": {\r\n        \"status\": \"generated\",\r\n        \"div\": \"<div xml:lang=\\\"en-US\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\" lang=\\\"en-US\\\">Example Practitioner</div>\"\r\n    },\r\n    \"contained\": [\r\n        {\r\n            \"resourceType\": \"Consent\",\r\n            \"id\": \"HideHomeContact\",\r\n            \"meta\": {\r\n                \"profile\": [\r\n                    \"http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Restriction\"\r\n                ]\r\n            },\r\n            \"extension\": [\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath\",\r\n                    \"valueExpression\": {\r\n                        \"language\": \"text/fhirpath\",\r\n                        \"expression\": \"Practitioner.address.where(use='home')\"\r\n                    }\r\n                },\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath\",\r\n                    \"valueExpression\": {\r\n                        \"language\": \"text/fhirpath\",\r\n                        \"expression\": \"Practitioner.telecom.where(use='home')\"\r\n                    }\r\n                }\r\n            ],\r\n            \"status\": \"active\",\r\n            \"scope\": {\r\n                \"coding\": [\r\n                    {\r\n                        \"system\": \"http://hl7.org/fhir/us/ndh/CodeSystem/ConsentScopeNdhCS\",\r\n                        \"code\": \"directory-privacy\"\r\n                    }\r\n                ],\r\n                \"text\": \"Directory Privacy\"\r\n            },\r\n            \"category\": [\r\n                {\r\n                    \"coding\": [\r\n                        {\r\n                            \"system\": \"http://hl7.org/fhir/us/ndh/CodeSystem/ConsentCategoryNdhCS\",\r\n                            \"code\": \"DRC\"\r\n                        }\r\n                    ],\r\n                    \"text\": \"Directory Restriction\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"extension\": [\r\n        {\r\n            \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-usage-restriction\",\r\n            \"valueReference\": {\r\n                \"reference\": \"#HideHomeContact\"\r\n            }\r\n        }\r\n    ],\r\n    \"identifier\": [\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-identifier-status\",\r\n                    \"valueCode\": \"active\"\r\n                }\r\n            ],\r\n            \"system\": \"http://www.ndh.org/identifiers\",\r\n            \"value\": \"JoeSmith\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"name\": [\r\n        {\r\n            \"text\": \"Joe Smith, MD\",\r\n            \"family\": \"Smith\",\r\n            \"given\": [\r\n                \"Joe\"\r\n            ]\r\n        }\r\n    ],\r\n    \"telecom\": [\r\n        {\r\n            \"system\": \"phone\",\r\n            \"value\": \"555-123-6666\",\r\n            \"use\": \"home\"\r\n        },\r\n        {\r\n            \"system\": \"phone\",\r\n            \"value\": \"555-123-1234\",\r\n            \"use\": \"work\"\r\n        }\r\n    ],\r\n    \"address\": [\r\n        {\r\n            \"use\": \"home\",\r\n            \"line\": [\r\n                \"263 Farmington Ave\"\r\n            ],\r\n            \"city\": \"Farmington\",\r\n            \"state\": \"CT\",\r\n            \"postalCode\": \"06030\",\r\n            \"country\": \"US\"\r\n        },\r\n        {\r\n            \"use\": \"work\",\r\n            \"type\": \"physical\",\r\n            \"line\": [\r\n                \"400 Lee Rd Farmington, CT 06032\"\r\n            ],\r\n            \"city\": \"Farmington\",\r\n            \"state\": \"CT\",\r\n            \"postalCode\": \"06032\",\r\n            \"country\": \"US\"\r\n        }\r\n    ],\r\n    \"qualification\": [\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\",\r\n                    \"extension\": [\r\n                        {\r\n                            \"url\": \"status\",\r\n                            \"valueCode\": \"revoked\"\r\n                        },\r\n                        {\r\n                            \"url\": \"whereValid\",\r\n                            \"valueCodeableConcept\": {\r\n                                \"coding\": [\r\n                                    {\r\n                                        \"system\": \"https://www.usps.com/\",\r\n                                        \"code\": \"CT\"\r\n                                    }\r\n                                ]\r\n                            }\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"code\": {\r\n                \"coding\": [\r\n                    {\r\n                        \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0360\",\r\n                        \"code\": \"MD\"\r\n                    }\r\n                ],\r\n                \"text\": \"MD\"\r\n            },\r\n            \"issuer\": {\r\n                \"display\": \"State of Connecticut\"\r\n            }\r\n        },\r\n        {\r\n            \"extension\": [\r\n                {\r\n                    \"url\": \"http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification\",\r\n                    \"extension\": [\r\n                        {\r\n                            \"url\": \"status\",\r\n                            \"valueCode\": \"active\"\r\n                        },\r\n                        {\r\n                            \"url\": \"whereValid\",\r\n                            \"valueCodeableConcept\": {\r\n                                \"coding\": [\r\n                                    {\r\n                                        \"system\": \"https://www.usps.com/\",\r\n                                        \"code\": \"CT\"\r\n                                    }\r\n                                ]\r\n                            }\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"code\": {\r\n                \"coding\": [\r\n                    {\r\n                        \"system\": \"http://nucc.org/provider-taxonomy\",\r\n                        \"code\": \"207R00000X\",\r\n                        \"display\": \"Internal Medicine Physician\"\r\n                    }\r\n                ],\r\n                \"text\": \"Board Certified Internal Medicine\"\r\n            },\r\n            \"issuer\": {\r\n                \"display\": \"American Board of Internal Medicine\"\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ndh_fhir_base}}/Practitioner/{{new_practitioner_id}}",
+					"host": [
+						"{{ndh_fhir_base}}"
+					],
+					"path": [
+						"Practitioner",
+						"{{new_practitioner_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -140,7 +292,17 @@
 			"type": "string"
 		},
 		{
+			"key": "ndh_websocket_url",
+			"value": "ws://localhost:8080/websocket",
+			"type": "string"
+		},
+		{
 			"key": "new_practitioner_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "new_practitioner_sub_id",
 			"value": "",
 			"type": "string"
 		}
