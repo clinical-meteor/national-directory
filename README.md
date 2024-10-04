@@ -7,6 +7,9 @@ Building and running the server locally requires either Docker or
 - Java 17+
 - Maven
 
+## Foundry
+A live demo is hosted by [HL7 FHIR Foundry](https://foundry.hl7.org/products/130d22c8-8d06-4d38-98e7-90a7e68915b9), where you may also download curated configurations to run yourself.
+
 ## Building and Running the Server
 
 There are multiple ways to build and run the server locally.  By default, the server's base FHIR endpoint will be available at http://localhost:8080/fhir
